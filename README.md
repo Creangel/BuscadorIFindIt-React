@@ -1,2 +1,2 @@
 # BuscadorIFindIt-React
-Microfrontend desarrollado con React, renderiza elementos de buscador, basandose en los resultados de BuscadorIFindIt-API, incluye servidor nginx, para servir scripts dinamicos a través de una url estática.
+Microfrontend desarrollado con React, renderiza elementos de buscador, basandose en los resultados de BuscadorIFindIt-API, incluye servidor nginx para servir scripts dinamicos a través de una url estática.

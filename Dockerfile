@@ -9,7 +9,7 @@ WORKDIR /app/react-frontend
 # Install Yarn
 RUN apk add --no-cache yarn
 
-# Install dependencies and build the React app by usinf yarn
+# Install dependencies and build the React app by using yarn
 RUN yarn install && yarn build
 
 # Stage 2: Nginx to serve built files
