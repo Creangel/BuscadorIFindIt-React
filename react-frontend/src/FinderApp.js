@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { DrawHeader } from "./components/DrawHeader";
 import { DrawSearchBox } from "./components/DrawSearchBox";
 import { DrawBody } from "./components/DrawBody";
 import { useFetchFinderResults } from './hooks/useFetchFinderResults';
@@ -34,7 +35,13 @@ export const FinderApp = () => {
   return (
     <>
       {
-          !isLoading && (<>
+          !isLoading && (<> 
+                            {
+                              "header" in queryResult.dataRender.auxContent && 
+                              (
+                                <DrawHeader header={ queryResult.dataRender.auxContent.header }/>
+                              )
+                            }
                             <DrawSearchBox info={ queryResult.dataRender }
                                             onSearch={ onSearch }
                                             finderData={ finderData }

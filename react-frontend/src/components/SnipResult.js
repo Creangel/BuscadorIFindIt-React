@@ -2,7 +2,7 @@ import { ResultTitle } from "./ResultTitle";
 import { ResultFields } from "./ResultFields";
 
 export const SnipResult = ({ index, doc, dataRender, snippet}) => {
-    let infoDrawResult = dataRender.auxContent
+    let infoDrawResult = dataRender.auxContent.auxContent
     let idClassLink = 'link_res_' + index
     let idClassSnip = 'snip_result_' + index
     return (
