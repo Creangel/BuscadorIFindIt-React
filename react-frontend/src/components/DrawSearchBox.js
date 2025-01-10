@@ -1,5 +1,3 @@
-import { EntityLogo } from "./EntityLogo"
-import { NumFound } from "./NumFound"
 import { SearchBar } from "./SearchBar"
 
 export const DrawSearchBox = ({info, finderData, onSearch}) => {
@@ -20,14 +18,17 @@ export const DrawSearchBox = ({info, finderData, onSearch}) => {
     return (
         <div className="container mt-10 text-center" id="headerContainer">
             <div className="row justify-content-md-center">              
-                <EntityLogo img={info.img}/>
+                {/* <EntityLogo img={info.img}/> */}
                 <div className="col-lg-1 col-sm-12 col-md-1" ></div>                
-                <SearchBar query={ info.query }
-                           onQuery={ onQuery }
-                />
-                <NumFound rangeDocs={ info.rangeDocs }
-                          numfounds={ info.numfounds }
-                />
+                {
+                    "searchBar" in info.auxContent &&                
+                    (
+                        <SearchBar query={ info.query }
+                                   searchBarContent={ info.auxContent.searchBar } 
+                                   onQuery={ onQuery }
+                        />
+                    )
+                }
             </div>
         </div>
     )

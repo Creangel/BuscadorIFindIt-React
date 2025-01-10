@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { DrawHeader } from "./components/DrawHeader";
 import { DrawSearchBox } from "./components/DrawSearchBox";
+import { NumFound } from "./components/NumFound";
 import { DrawBody } from "./components/DrawBody";
 import { useFetchFinderResults } from './hooks/useFetchFinderResults';
 
@@ -32,6 +33,8 @@ export const FinderApp = () => {
     }
   }, [finderData]);
 
+  console.log("FinderApp: queryResult=", queryResult);
+
   return (
     <>
       {
@@ -45,7 +48,10 @@ export const FinderApp = () => {
                             <DrawSearchBox info={ queryResult.dataRender }
                                             onSearch={ onSearch }
                                             finderData={ finderData }
-                                          />  
+                                          />
+                            <NumFound rangeDocs={ queryResult.dataRender.rangeDocs }
+                                      numfounds={ queryResult.dataRender.numfounds }
+                            />        
                             <DrawBody info={ queryResult }
                                       onSearch={ onSearch }
                                       finderData={ finderData } />                      

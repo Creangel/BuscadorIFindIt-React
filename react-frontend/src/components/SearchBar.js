@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useFetchSearchBarIcon } from '../hooks/useFetchSearchBarIcon';
 
-export const SearchBar = ({ query, onQuery }) => {
+export const SearchBar = ({ query, searchBarContent, onQuery }) => {
 
-    const [ inputValue, setInputValue ] = useState('')
+    const [ inputValue, setInputValue ] = useState('');
+    const { searchBarIcon, isLoading } = useFetchSearchBarIcon(searchBarContent.id);
 
     const onInputChange = ({ target }) => {
         setInputValue( target.value );
@@ -16,19 +18,29 @@ export const SearchBar = ({ query, onQuery }) => {
 
     return (
         <div className="col col-lg-6 col-sm-12 col-md-6  " id="barSearchContainer" >
-            <div className="col col-11 col-sm-7 col-md-9" id="barSearch">
+            <div className={ searchBarContent.searchBarType === "default" ? "col col-11 col-sm-7 col-md-9" : "" } id="barSearch">
                 <form onSubmit={ onSubmit }>
                     <input type="text" 
-                           placeholder=  { query === "*" ? "Todos Los Resultados" : query } 
+                           placeholder=  { query === "*" ? searchBarContent.searchBarPlaceHolder : query } 
                            name="search" id="search" 
                            value={ inputValue }
                            onChange={ onInputChange }
                     />      
                 </form>
             </div>
-            <div className="col col-1 col-sm-5 col-md-3" id="buttonSearch" onClick={ onSubmit }>
-                        <img id="imgButtonSearch" src="magnifying_glass.png" alt=''/>
-            </div> 
+            {
+                !isLoading && 
+                (
+                    searchBarIcon !== "magnifying_glass.png" ?
+                        <button onClick={ onSubmit }>
+                            <img src={ searchBarIcon } alt=''/>
+                        </button>
+                        :
+                        <div className="col col-1 col-sm-5 col-md-3" id="buttonSearch" onClick={ onSubmit }>
+                            <img id="imgButtonSearch" src={ searchBarIcon } alt=''/>
+                        </div>
+                )
+            }
         </div>                      
     );
 };

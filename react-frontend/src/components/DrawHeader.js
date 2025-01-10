@@ -1,7 +1,6 @@
 import { HeaderImage } from "./HeaderImage";
 
 export const DrawHeader = ({ header }) => {
-    console.log("header: ", header);
     return (
         <header>
             {   

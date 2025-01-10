@@ -1,18 +1,14 @@
-import { useEffect, useState } from "react";
-import { getHeaderImage } from "../helpers/getHeaderImage";
+import { useFetchHeaderImage } from "../hooks/useFetchHeaderImage";
 
 export const HeaderImage = ({ headerImageName }) => {
 
-    const [headerImage, setHeaderImage] = useState(null);
-
-    useEffect(() => {
-        getHeaderImage(headerImageName)
-            .then((url) => {
-                setHeaderImage(url);
-            });
-    }, [headerImageName]);  
+    const { headerImage, isLoading } = useFetchHeaderImage(headerImageName);
 
     return (
-        <img src={ headerImage } alt={ headerImageName } />
+        <>
+            {
+                !isLoading && ( <img src={ headerImage } alt={ headerImageName } /> )
+            }
+        </>
     );
 };
