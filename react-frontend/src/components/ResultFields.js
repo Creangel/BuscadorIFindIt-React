@@ -1,29 +1,21 @@
 import { Snippet } from "./Snippet";
-import { DrawResultsText } from "./DrawResultsText";
-import { DrawResultsDate } from "./DrawResultsDate";
+import { useEffect } from "react";
 
-export const ResultFields = ({ docIndex, infoDrawResult, snippet, infoResult }) => {
+export const ResultFields = ({ docIndex, dispositionResults, snippet, infoResult }) => {
 
-    const snippetExist = snippet?.[docIndex]?.content?.[0] !== undefined;
+    const snippetExist = snippet?.content?.[0] !== undefined;
     
     return (
         <div>
             {
-                snippetExist && ( <Snippet snippet={ snippet[docIndex].content[0] }/> )
+                snippetExist && ( <Snippet snippet={ snippet.content[0] }
+                                           docIndex={ docIndex  } 
+                                  /> )
             }
             {
-                infoDrawResult
-                    .filter(result => infoResult[result.field] !== undefined && infoResult[result.field] !== '')
-                    .map((result, i) => {
-                        switch (result.type) {
-                            case 'text':
-                                return <DrawResultsText key={result.field || i} infoDrawResult={result} doc={infoResult} />;
-                            case 'date':
-                                return <DrawResultsDate key={result.field || i} infoDrawResult={result} doc={infoResult} />;
-                            default:
-                                return null;
-                        }
-                    })
+                dispositionResults.hasCustomContent && (
+                    <div></div>
+                )
             }
         </div>
     );

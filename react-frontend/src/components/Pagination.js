@@ -1,6 +1,6 @@
 import { numeratePags, getNewPageVal } from "../helpers/numeratePags";
 
-export const DrawFooter = ({ info, finderData, onSearch }) => {
+export const Pagination = ({ pagination }) => {
 
     const maxPage= Math.round(( info.numfounds ) / 10)
     const rangeInl= parseInt( info.rangeDocs.split("-")[0] )

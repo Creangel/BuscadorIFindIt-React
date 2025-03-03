@@ -1,6 +1,6 @@
-export const DrawNoResultsText = ({ info }) =>{
+export const DrawNoResultsText = ({ query }) =>{
     return (<div className="row">
-        <div>No existen resultados para la busqueda "{info.query}"</div>
+        <div>No existen resultados para la busqueda "{ query }"</div>
     </div>
     )
 }

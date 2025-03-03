@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-export const SearchBar = ({ query, onQuery }) => {
+export const SearchBar = ({ query, searchBox, onQuery }) => {
 
-    const [ inputValue, setInputValue ] = useState('')
+    const [ inputValue, setInputValue ] = useState('');
+    const searchBarIcon = `data:image/png;base64,${searchBox.searchBarIcon}`;
 
     const onInputChange = ({ target }) => {
         setInputValue( target.value );
@@ -15,20 +16,22 @@ export const SearchBar = ({ query, onQuery }) => {
     }
 
     return (
-        <div className="col col-lg-6 col-sm-12 col-md-6  " id="barSearchContainer" >
-            <div className="col col-11 col-sm-7 col-md-9" id="barSearch">
+        <div id="searchbar-container" >
+            <div id={searchBox.id}>
                 <form onSubmit={ onSubmit }>
                     <input type="text" 
-                           placeholder=  { query === "*" ? "Todos Los Resultados" : query } 
+                           placeholder=  { query === "*" ? searchBox.searchBarPlaceholder : query } 
                            name="search" id="search" 
                            value={ inputValue }
                            onChange={ onInputChange }
                     />      
                 </form>
             </div>
-            <div className="col col-1 col-sm-5 col-md-3" id="buttonSearch" onClick={ onSubmit }>
-                        <img id="imgButtonSearch" src="magnifying_glass.png" alt=''/>
-            </div> 
+            <div>
+                <button onClick={ onSubmit }>
+                    <img src={ searchBarIcon } alt=''/>
+                </button>
+            </div>
         </div>                      
     );
 };
