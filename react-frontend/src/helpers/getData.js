@@ -1,14 +1,11 @@
-import { dataCreator } from './dataCreator';
-
-export const getData = async( bodyData ) => {
-    let data = dataCreator(bodyData);
-    const response = await fetch('http://localhost:8080/apiFinder/Find', {
+export const getData = async( finderData ) => {
+    const response = await fetch('http://localhost:8083/Find', {
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json'
         },
         method: 'POST',
         mode: 'cors',
-        body: data
+        body: JSON.stringify(finderData)
     });
     const resp = await response.json();
     return resp;

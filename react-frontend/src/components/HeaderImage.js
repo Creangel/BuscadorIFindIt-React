@@ -1,14 +1,10 @@
-import { useFetchHeaderImage } from "../hooks/useFetchHeaderImage";
+export const HeaderImage = ({ headerName, headerImage }) => {
+  const imageUrl = `data:image/png;base64,${headerImage}`;
 
-export const HeaderImage = ({ headerImageName }) => {
-
-    const { headerImage, isLoading } = useFetchHeaderImage(headerImageName);
-
-    return (
-        <>
-            {
-                !isLoading && ( <img src={ headerImage } alt={ headerImageName } /> )
-            }
-        </>
-    );
+  return (
+    <div>
+      <img src={ imageUrl } alt={ headerName } />
+    </div>
+  );
 };
+

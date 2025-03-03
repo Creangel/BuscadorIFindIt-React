@@ -14,27 +14,29 @@
     <link rel="manifest" href="./manifest.json" />
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
+      It will be replaced with the URL of the `public` folder during the build. 
       Only files inside the `public` folder can be referenced from the HTML.
 
       Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>IFindIt</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="SearchIFindIt"></div>
     <script>
-      sessionStorage.setItem("finder", "3");
-      sessionStorage.setItem("find", "True");
-      sessionStorage.setItem("query", "*");
-      sessionStorage.setItem("pageNum", "1");
-      sessionStorage.setItem("start", "0");
-      sessionStorage.setItem("type", "load");
-      sessionStorage.setItem("sort", "sort");
+      sessionStorage.setItem("finderId", "1");
       sessionStorage.setItem("inmeta", "");
+      sessionStorage.setItem("pageNum", "1");
+      sessionStorage.setItem("query", "*");
+      sessionStorage.setItem("start", "0");
+      sessionStorage.setItem("rlv", "");
+      sessionStorage.setItem("filters", []);
   </script>
+  <!-- <script type="text/javascript" src="https://ifindit.creangel.com/BuscadoresResources/js/responsive.js"></script> -->
   </body>
+  <script type="text/javascript" src="https://ifindit.creangel.com/BuscadoresResources/js/fix_titles_v2.js"></script>
 </html>

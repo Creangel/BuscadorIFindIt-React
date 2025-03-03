@@ -1,19 +1,16 @@
-import { SnipResult } from './SnipResult';
+import { Result } from './Result';
 
-export const DrawResults = ({ info }) => {
-
-    const docs = info.infoRender.docs;
-    const dataRender = info.dataRender;
+export const DrawResults = ({ docs, disposition, snippets }) => {
 
     return (
             <div id="results_container">
                 { 
                     docs.map(( doc, index ) => (
-                        <SnipResult key={ index }
-                                    doc={ doc }
-                                    dataRender = { dataRender }
-                                    snippet= { info.snippet }
-                                    index = { index }	
+                        <Result key={ index }
+                                doc={ doc }
+                                disposition = { disposition }
+                                snippet={ snippets[index] }
+                                index = { index }	
                         />
                     ))
                 }

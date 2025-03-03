@@ -1,62 +1,95 @@
 import { useEffect, useState } from 'react';
-import { DrawHeader } from "./components/DrawHeader";
-import { DrawSearchBox } from "./components/DrawSearchBox";
-import { NumFound } from "./components/NumFound";
-import { DrawBody } from "./components/DrawBody";
 import { useFetchFinderResults } from './hooks/useFetchFinderResults';
+import { useFetchDisposition } from './hooks/useFetchDisposition';
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
+import { SearchBox } from "./components/SearchBox";
+import { NumFound } from "./components/NumFound";
+import { Body } from "./components/Body";
 
 const initParams = {
-  finder: sessionStorage.getItem("finder"),
-  find: sessionStorage.getItem("find"),
-  query: sessionStorage.getItem("query"),
-  pageNum: sessionStorage.getItem("pageNum"),
-  start: sessionStorage.getItem("start"),
-  type: sessionStorage.getItem("type"),
-  sort: sessionStorage.getItem("sort"),
+  finderId: sessionStorage.getItem("finderId"),
   inmeta: sessionStorage.getItem("inmeta"),
+  pageNum: sessionStorage.getItem("pageNum"),
+  query: sessionStorage.getItem("query"),
+  start: sessionStorage.getItem("start"),
+  rlv: sessionStorage.getItem("rlv"),
+  filters: sessionStorage.getItem("filters"),
 };
 
 export const FinderApp = () => {
 
   const [ finderData, setFinderData ] = useState( initParams );
-  const { queryResult, isLoading, setQueryParams } = useFetchFinderResults(initParams);
+  const { disposition, isLoadingDisposition } = useFetchDisposition( initParams.finderId );
+  const { findResponse, isLoading, setQueryParams } = useFetchFinderResults( initParams);
 
-  const onSearch = (newData) => {
-    setFinderData({...newData});
-    setQueryParams({...newData});
+  const onSearch = ( newData ) => {
+    setFinderData( {...newData} );
+    setQueryParams( {...newData} );
   };
 
   useEffect(() => {
-    console.log("Setting finderData on sessionStorage...");
-    for (const [key, value] of Object.entries(finderData)) {
-        sessionStorage.setItem(key, value);
-    }
-  }, [finderData]);
+    console.log("Setting disposition on sessionStorage...");
+    sessionStorage.setItem("disposition", disposition);
+    finderData.filters = disposition.filters;
+    setFinderData({...finderData});
+    setQueryParams({...finderData});
+  }, [ isLoadingDisposition ]);
 
-  console.log("FinderApp: queryResult=", queryResult);
+  useEffect(() => {
+    console.log("Setting filters on finderData based on findResponse filters...");
+    finderData.filters = findResponse.filters;
+    setFinderData({...finderData});
+  }, [ isLoading ]);
+
+  console.log("FinderApp: disposition => ", disposition);
+  console.log("FinderApp: findResponse => ", findResponse);
+  console.log("FinderApp: finderData => ", finderData);
 
   return (
     <>
       {
-          !isLoading && (<> 
-                            {
-                              "header" in queryResult.dataRender.auxContent && 
-                              (
-                                <DrawHeader header={ queryResult.dataRender.auxContent.header }/>
-                              )
-                            }
-                            <DrawSearchBox info={ queryResult.dataRender }
-                                            onSearch={ onSearch }
-                                            finderData={ finderData }
-                                          />
-                            <NumFound rangeDocs={ queryResult.dataRender.rangeDocs }
-                                      numfounds={ queryResult.dataRender.numfounds }
-                            />        
-                            <DrawBody info={ queryResult }
-                                      onSearch={ onSearch }
-                                      finderData={ finderData } />                      
-                        </>
-                        )
+        (!isLoadingDisposition && !isLoading ) && 
+          (
+            <> 
+              {
+                "header" in disposition && 
+                (
+                  <Header header={ disposition.header }/>
+                )
+              }
+              {
+                "searchBox" in disposition &&
+                (
+                  <SearchBox searchBox={ disposition.searchBox }
+                              onSearch={ onSearch }
+                              finderData={ finderData }
+                  />
+                )
+              }
+              {
+                ("hasResultsSummarySection" in disposition && disposition.hasResultsSummarySection ) && 
+                (
+                  <NumFound rangeDocs={ findResponse.docsInfo.rangeDocs }
+                            numfounds={ findResponse.docsInfo.numFound }
+                  />       
+                )     
+              }
+              {
+                <Body disposition={ disposition }
+                      findResponse={ findResponse }
+                      finderData={ finderData } 
+                      onSearch={ onSearch } 
+                />
+              }
+              {
+                "footer" in disposition && 
+                (
+                  <Footer footer={ disposition.footer } />  
+                )
+              }
+          </>
+        )
       }
     </>
   );
