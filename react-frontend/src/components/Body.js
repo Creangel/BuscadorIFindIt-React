@@ -1,6 +1,7 @@
 import { Filters } from "./Filters";
-import { DrawNoResultsText } from "./DrawNoResultsText";
 import { DrawResults } from "./DrawResults";
+import { SpellChecker } from "./SpellChecker";
+import { DrawNoResultsText } from "./DrawNoResultsText";
 
 export const Body = ({ disposition, findResponse, finderData, onSearch }) => {
     console.log("Hello my Filters: finderData => ", finderData.filters);
@@ -20,6 +21,9 @@ export const Body = ({ disposition, findResponse, finderData, onSearch }) => {
                     }
                 </div>
                 <div>
+                    < SpellChecker finderData={ finderData }
+                                   onSearch={ onSearch } 
+                    />
                     {
                         resultDocs ?
                             ( <DrawResults docs = { findResponse.docsInfo.docs }

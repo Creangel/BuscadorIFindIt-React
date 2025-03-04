@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export const SearchBar = ({ query, searchBox, onQuery }) => {
 
@@ -14,6 +14,13 @@ export const SearchBar = ({ query, searchBox, onQuery }) => {
         onQuery(inputValue.trim())
         setInputValue(inputValue.trim());
     }
+
+    useEffect(() => {
+        if( query !== "*" ){
+            setInputValue( query );
+            return;
+        }
+    }, [ query ]);
 
     return (
         <div id="searchbar-container" >
