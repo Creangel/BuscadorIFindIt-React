@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useFetchFinderResults } from './hooks/useFetchFinderResults';
-import { useFetchDisposition } from './hooks/useFetchDisposition';
+import { Body } from "./components/Body";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
-import { SearchBox } from "./components/SearchBox";
 import { NumFound } from "./components/NumFound";
-import { Body } from "./components/Body";
+import { SearchBox } from "./components/SearchBox";
+import { useFetchFinderResults } from './hooks/useFetchFinderResults';
+import { useFetchDisposition } from './hooks/useFetchDisposition';
 
 const initParams = {
   finderId: sessionStorage.getItem("finderId"),
@@ -30,7 +30,7 @@ export const FinderApp = () => {
 
   useEffect(() => {
     console.log("Setting disposition on sessionStorage...");
-    sessionStorage.setItem("disposition", disposition);
+    sessionStorage.setItem("disposition", JSON.stringify(disposition));
     finderData.filters = disposition.filters;
     setFinderData({...finderData});
     setQueryParams({...finderData});
@@ -40,7 +40,7 @@ export const FinderApp = () => {
     console.log("Setting filters on finderData based on findResponse filters...");
     finderData.filters = findResponse.filters;
     setFinderData({...finderData});
-  }, [ isLoading ]);
+  }, [ isLoading ]); 
 
   console.log("FinderApp: disposition => ", disposition);
   console.log("FinderApp: findResponse => ", findResponse);
@@ -85,7 +85,7 @@ export const FinderApp = () => {
               {
                 "footer" in disposition && 
                 (
-                  <Footer footer={ disposition.footer } />  
+                  < Footer footer={ disposition.footer } />  
                 )
               }
           </>

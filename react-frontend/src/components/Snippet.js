@@ -18,7 +18,6 @@ export const Snippet = ({ docIndex, snippet }) => {
     }, []);
 
     useEffect(() => {
-        console.log("Snippet have changed. Fixing snippet...");
         if (window.fixSnippet) {
             const snippetPrefix =  window.fixSnippet( docIndex );
             setSnippetPrefix( snippetPrefix );

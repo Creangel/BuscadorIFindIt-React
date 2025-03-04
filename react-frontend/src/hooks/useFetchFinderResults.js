@@ -16,9 +16,25 @@ export const useFetchFinderResults = ( bodyData ) => {
         setisLoading(false);
     }
 
+    const executeSpellChecker = () => {
+        console.log("Checking spell...");
+        if (window.callSpellchecker) {
+            const disposition = JSON.parse( sessionStorage.getItem("disposition") ); 
+            sessionStorage.setItem("query", queryParams.query);
+            if (disposition?.spellchecker === null) return;
+            const pathService = disposition.spellchecker.pathService; 
+            const typeSpell = disposition.spellchecker.type;
+            //window.callSpellchecker(pathService, typeSpell);
+            window.callSpellchecker("https://ifindit.creangel.com/Spellchecker_minv/wordSpell", typeSpell);
+        } else {
+            console.error("callSpellchecker is not defined. Make sure the script is loaded correctly.");
+        }
+    }
+
     useEffect( () => {
         if ( queryParams.filters === undefined  || Object.keys( queryParams.filters ).length === 0 ) return;
         getResults();
+        executeSpellChecker();
     },[queryParams])
 
     return {

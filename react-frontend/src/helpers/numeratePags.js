@@ -18,7 +18,7 @@ export const getNewPageVal = ( id, maxPage, rangeInl, rangeFnl ) => {
         case "pagenumleft":
             return maxPage;
         case "rigthArrow":
-            return Math.round(((rangeFnl)/10)+1);
+            return Math.round( ( (rangeFnl) / 10 ) + 1 );
         default:
             return;
     }
