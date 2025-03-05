@@ -29,6 +29,7 @@ export const Body = ({ disposition, findResponse, finderData, onSearch }) => {
                             ( <DrawResults docs = { findResponse.docsInfo.docs }
                                            snippets = { findResponse.snippets }
                                            disposition = { disposition }
+                                           query = { finderData.query }
                               /> )
                         : 
                             ( <DrawNoResultsText query={ finderData.query } /> )               

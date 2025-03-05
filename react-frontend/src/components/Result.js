@@ -2,7 +2,7 @@ import { ResultTitle } from "./ResultTitle";
 import { ResultFields } from "./ResultFields";
 import { useEffect } from "react";
 
-export const Result = ({ index, doc, disposition, snippet}) => {
+export const Result = ({ index, doc, disposition, snippet, query }) => {
     let dispositionResults = disposition.results
     let idClassLink = 'link_res_' + index
     let idClassSnip = 'snip_result_' + index
@@ -21,7 +21,8 @@ export const Result = ({ index, doc, disposition, snippet}) => {
             <div>
                 < ResultTitle id={ idClassLink }
                               href={ doc[ dispositionResults.urlField ] }
-                              title={ doc[ dispositionResults.titleField ] }   
+                              title={ doc[ dispositionResults.titleField ] }
+                              query={ query }  
                 />
             </div> 
             <div>
