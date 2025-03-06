@@ -1,4 +1,4 @@
-export const ResultTitle = ({ id, href, title, query }) => {
+export const ResultTitle = ({ id, href, title, query, index }) => {
 
     const validateHref = (href) => {
         if (href === undefined || href === null || href === '' || 
@@ -8,7 +8,7 @@ export const ResultTitle = ({ id, href, title, query }) => {
         return href;
     };
 
-    const onSendSignals = ( type, url, query, pos ) => {
+    const onSendSignals = (type, url, query, pos) => {
         if (window.sendSignals) {
             window.sendSignals(type, url, query, pos);
         } else {
@@ -16,13 +16,18 @@ export const ResultTitle = ({ id, href, title, query }) => {
         }
     };
 
+    const handleClick = (event) => {
+        event.preventDefault();
+        onSendSignals('click', href, query, index + 1);
+    };
+
     return (
-        <a id={ id } 
+        <a id={id} 
            target="_blank" 
            rel="noreferrer" 
-           href={ validateHref(href) } 
-           onClick={ onSendSignals('click', href, query, ( id + 1 )) } > 
-            { title } 
+           href={validateHref(href)} 
+           onClick={handleClick}> 
+            {title} 
         </a>
     );
 };

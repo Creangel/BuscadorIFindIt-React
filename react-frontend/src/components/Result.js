@@ -22,7 +22,8 @@ export const Result = ({ index, doc, disposition, snippet, query }) => {
                 < ResultTitle id={ idClassLink }
                               href={ doc[ dispositionResults.urlField ] }
                               title={ doc[ dispositionResults.titleField ] }
-                              query={ query }  
+                              query={ query }
+                              index={ index }  
                 />
             </div> 
             <div>
