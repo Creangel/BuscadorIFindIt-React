@@ -1,3 +1,7 @@
+import CardActions from '@mui/material/CardActions';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
 export const ResultTitle = ({ id, href, title, query, index }) => {
 
     const validateHref = (href) => {
@@ -22,12 +26,18 @@ export const ResultTitle = ({ id, href, title, query, index }) => {
     };
 
     return (
-        <a id={id} 
-           target="_blank" 
-           rel="noreferrer" 
-           href={validateHref(href)} 
-           onClick={handleClick}> 
-            {title} 
-        </a>
+        <>
+            <CardActions>
+               <Button size="small">
+                    <a id={id} 
+                        target="_blank" 
+                        rel="noreferrer" 
+                        href={validateHref(href)} 
+                        onClick={handleClick}> 
+                                {title} 
+                    </a>
+               </Button>
+            </CardActions>
+        </>
     );
 };

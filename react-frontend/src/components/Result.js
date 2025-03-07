@@ -1,6 +1,7 @@
 import { ResultTitle } from "./ResultTitle";
 import { ResultFields } from "./ResultFields";
 import { useEffect } from "react";
+import Card from '@mui/material/Card';
 
 export const Result = ({ index, doc, disposition, snippet, query }) => {
     let dispositionResults = disposition.results
@@ -17,25 +18,21 @@ export const Result = ({ index, doc, disposition, snippet, query }) => {
     }, [ doc[ dispositionResults.urlField ] ]); 
 
     return (
-        <div id={ idClassSnip } className="snip_result">
-            <div>
-                < ResultTitle id={ idClassLink }
-                              href={ doc[ dispositionResults.urlField ] }
-                              title={ doc[ dispositionResults.titleField ] }
-                              query={ query }
-                              index={ index }  
-                />
-            </div> 
-            <div>
-                < ResultFields docIndex={ index }
-                               dispositionResults={ dispositionResults }
-                               snippet={ snippet }
-                               infoResult={ doc }
-                />
-            </div>
+        <Card id={ idClassSnip } className="snip_result" >
+            < ResultTitle id={ idClassLink }
+                            href={ doc[ dispositionResults.urlField ] }
+                            title={ doc[ dispositionResults.titleField ] }
+                            query={ query }
+                            index={ index }  
+            />
+            < ResultFields docIndex={ index }
+                            dispositionResults={ dispositionResults }
+                            snippet={ snippet }
+                            infoResult={ doc }
+            />
             <div>
                 <input type="hidden" name="docDate" value={doc.crawl_date} />
             </div>
-        </div>
+        </Card>
     );
 };

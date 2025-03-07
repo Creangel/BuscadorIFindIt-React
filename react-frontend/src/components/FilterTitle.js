@@ -1,8 +1,9 @@
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import { ListItemButton, ListItemIcon, ListItemText, ListItem } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import Typography from '@mui/material/Typography';
 
-export const FilterTitle = ({ filter, setOpen, open }) => {
+export const FilterTitle = ({ filter, setOpen, open, stylesConfiguration }) => {
 
     const onClick = () => {
         setOpen(!open);
@@ -12,19 +13,43 @@ export const FilterTitle = ({ filter, setOpen, open }) => {
         <>
             {
                 filter.collapsable ? ( 
-                    <ListItemButton onClick={onClick}>
+                    <ListItemButton onClick={onClick} >
                         <ListItemIcon>
-                            <FilterAltIcon />
+                            <FilterAltIcon sx={{ color: stylesConfiguration.color }}/>
                         </ListItemIcon>
-                        <ListItemText primary={ filter.title } />
+                        <ListItemText
+                            disableTypography
+                            primary={
+                                <Typography sx={{ 
+                                    fontSize: stylesConfiguration.fontSize,
+                                    fontFamily: stylesConfiguration.fontFamily,
+                                    fontWeight: stylesConfiguration.fontWeight,
+                                    fontStyle: stylesConfiguration.fontStyle,
+                                }}>
+                                    { filter.title }
+                                </Typography>
+                            }
+                        />
                         { open ? <ExpandLess /> : <ExpandMore />}
                         </ListItemButton>
                 ) : (
-                    <ListItem>
+                    <ListItem >
                         <ListItemIcon>
-                            <FilterAltIcon />
+                            <FilterAltIcon sx={{ color: stylesConfiguration.color }} />
                         </ListItemIcon>
-                        <ListItemText primary={ filter.title } />
+                        <ListItemText
+                            disableTypography
+                            primary={
+                                <Typography sx={{ 
+                                    fontSize: stylesConfiguration.fontSize,
+                                    fontFamily: stylesConfiguration.fontFamily,
+                                    fontWeight: stylesConfiguration.fontWeight,
+                                    fontStyle: stylesConfiguration.fontStyle,
+                                }}>
+                                    { filter.title }
+                                </Typography>
+                            }
+                        />
                     </ListItem>
                 )
             }

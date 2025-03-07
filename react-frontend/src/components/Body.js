@@ -17,6 +17,7 @@ export const Body = ({ disposition, findResponse, finderData, onSearch }) => {
                             resultDocs && filtersExist && (
                                 <Filters finderData={ finderData }
                                         onSearch={ onSearch }
+                                        disposition={ disposition }
                                 />
                             )
                         }

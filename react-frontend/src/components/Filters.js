@@ -1,8 +1,6 @@
 import { SingleFilter } from "./SingleFilter";
-import { FilterTitle } from "./FilterTitle";
-import { useState } from "react";
 
-export const Filters = ({ finderData, onSearch }) => {
+export const Filters = ({ finderData, onSearch, disposition }) => {
 
     return (
         <>
