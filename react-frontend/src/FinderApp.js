@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Body } from "./components/Body";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
-import { NumFound } from "./components/NumFound";
 import { SearchBox } from "./components/SearchBox";
 import { useFetchFinderResults } from './hooks/useFetchFinderResults';
 import { useFetchDisposition } from './hooks/useFetchDisposition';
@@ -66,14 +65,6 @@ export const FinderApp = () => {
                               finderData={ finderData }
                   />
                 )
-              }
-              {
-                ("hasResultsSummarySection" in disposition && disposition.hasResultsSummarySection ) && 
-                (
-                  <NumFound rangeDocs={ findResponse.docsInfo.rangeDocs }
-                            numfounds={ findResponse.docsInfo.numFound }
-                  />       
-                )     
               }
               {
                 <Body disposition={ disposition }

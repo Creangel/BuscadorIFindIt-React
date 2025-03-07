@@ -1,5 +1,5 @@
 import { HeaderImage } from "./HeaderImage";
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 
 export const Header = ({ header }) => {
     
@@ -15,12 +15,12 @@ export const Header = ({ header }) => {
             backgroundColor: stylesConfiguration.backgroundColor,
         }}>
             <Grid container spacing={5}   
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-                sx={{
-                height: '100%', // Ensure the grid takes the full height of the header
-                width: '100%', // Ensure the grid takes the full width of the header
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{
+                    height: '100%', // Ensure the grid takes the full height of the header
+                    width: '100%', // Ensure the grid takes the full width of the header
                 }}>
                     {   
                         Object.keys(header).map(key => {
