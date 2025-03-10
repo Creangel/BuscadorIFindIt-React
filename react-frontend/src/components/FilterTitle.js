@@ -13,19 +13,14 @@ export const FilterTitle = ({ filter, setOpen, open, stylesConfiguration }) => {
         <>
             {
                 filter.collapsable ? ( 
-                    <ListItemButton onClick={onClick} >
+                    <ListItemButton onClick={onClick}>
                         <ListItemIcon>
                             <FilterAltIcon sx={{ color: stylesConfiguration.color }}/>
                         </ListItemIcon>
                         <ListItemText
                             disableTypography
                             primary={
-                                <Typography sx={{ 
-                                    fontSize: stylesConfiguration.fontSize,
-                                    fontFamily: stylesConfiguration.fontFamily,
-                                    fontWeight: stylesConfiguration.fontWeight,
-                                    fontStyle: stylesConfiguration.fontStyle,
-                                }}>
+                                <Typography sx={ stylesConfiguration }>
                                     { filter.title }
                                 </Typography>
                             }
@@ -40,12 +35,7 @@ export const FilterTitle = ({ filter, setOpen, open, stylesConfiguration }) => {
                         <ListItemText
                             disableTypography
                             primary={
-                                <Typography sx={{ 
-                                    fontSize: stylesConfiguration.fontSize,
-                                    fontFamily: stylesConfiguration.fontFamily,
-                                    fontWeight: stylesConfiguration.fontWeight,
-                                    fontStyle: stylesConfiguration.fontStyle,
-                                }}>
+                                <Typography sx={ stylesConfiguration }>
                                     { filter.title }
                                 </Typography>
                             }

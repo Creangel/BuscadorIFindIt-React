@@ -1,6 +1,6 @@
 import { SingleFilter } from "./SingleFilter";
 
-export const Filters = ({ finderData, onSearch, disposition }) => {
+export const Filters = ({ finderData, onSearch }) => {
 
     return (
         <>

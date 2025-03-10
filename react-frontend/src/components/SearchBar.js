@@ -4,10 +4,11 @@ import IconButton from '@mui/material/IconButton';
 import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
 
-export const SearchBar = ({ query, searchBox, onQuery }) => {
+export const SearchBar = ({ query, searchBox, onQuery, disposition }) => {
 
     const [ inputValue, setInputValue ] = useState('');
     const searchBarIcon = `data:image/png;base64,${searchBox.searchBarIcon}`;
+    const stylesConfiguration = "header" in disposition ? disposition.header.stylesConfiguration : {};
 
     const onInputChange = ({ target }) => {
         setInputValue( target.value );
@@ -32,7 +33,14 @@ export const SearchBar = ({ query, searchBox, onQuery }) => {
     }, [ query ]);
 
     return (
-        <div id="searchbar-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '10px' }} >
+        <div id="searchbar-container" style={{ 
+            backgroundColor: stylesConfiguration.backgroundColor , 
+            display: 'flex', 
+            justifyContent: 'end',
+            paddingBottom: '10px',
+            paddingRight: '10px',
+        }} 
+        >
             <div id={searchBox.id}>
                 <form onSubmit={ onSubmit }>
                     <FormControl sx={{ width: '40ch' }}>
@@ -51,11 +59,12 @@ export const SearchBar = ({ query, searchBox, onQuery }) => {
                                         value={ inputValue }
                                         onChange={ onInputChange }
                                         InputProps={{
+                                            sx: { backgroundColor: 'white' },
                                             ...params.InputProps,
                                             endAdornment: (
                                                 <InputAdornment position="end">
                                                     <IconButton type="button" 
-                                                                sx={{ p: '2px' }} 
+                                                                sx={{ p: '1px' }} 
                                                                 onClick={onSubmit}>
                                                         <img src={searchBarIcon} alt='' />
                                                     </IconButton>

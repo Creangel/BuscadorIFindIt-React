@@ -1,8 +1,6 @@
-import CardActions from '@mui/material/CardActions';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export const ResultTitle = ({ id, href, title, query, index }) => {
+export const ResultTitle = ({ id, href, title, query, index, stylesConfiguration }) => {
 
     const validateHref = (href) => {
         if (href === undefined || href === null || href === '' || 
@@ -21,23 +19,20 @@ export const ResultTitle = ({ id, href, title, query, index }) => {
     };
 
     const handleClick = (event) => {
-        event.preventDefault();
         onSendSignals('click', href, query, index + 1);
     };
 
     return (
-        <>
-            <CardActions>
-               <Button size="small">
-                    <a id={id} 
-                        target="_blank" 
-                        rel="noreferrer" 
-                        href={validateHref(href)} 
-                        onClick={handleClick}> 
-                                {title} 
-                    </a>
-               </Button>
-            </CardActions>
-        </>
+        <Typography component="a"
+                    id={id}
+                    target="_blank"
+                    variant='h6'
+                    rel="noreferrer"
+                    href={validateHref(href)}
+                    onClick={handleClick}
+                    sx={{ ...stylesConfiguration, textDecoration: 'none' }}
+        >
+            {title}
+        </Typography>
     );
 };

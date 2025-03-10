@@ -1,6 +1,8 @@
-export const DrawNoResultsText = ({ query }) => {
+export const DrawNoResultsText = ({ query, stylesConfiguration }) => {
+    const contentStyle = stylesConfiguration.filter((style) => style.name === "result_content")[0];  
+
     return (
-      <div className="row">
+      <div className="row" style={contentStyle}>
         <div>
           Su búsqueda - "<b>{query}</b>" - no produjo ningún documento.
           <br />

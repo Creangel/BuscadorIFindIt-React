@@ -1,4 +1,4 @@
-export const SpellChecker = ({ finderData, onSearch }) => {
+export const SpellChecker = ({ finderData, onSearch, stylesConfiguration }) => {
 
     const onClick = (event) => {
       event.preventDefault();
@@ -8,13 +8,19 @@ export const SpellChecker = ({ finderData, onSearch }) => {
     }
 
     return (
-      <div id="ob_corrector" style={{ display: 'none' }}>
+      <div id="ob_corrector" 
+          style={{ fontSize: stylesConfiguration.fontSize,
+                   fontFamily: stylesConfiguration.fontFamily,
+                   fontWeight: stylesConfiguration.fontWeight,
+                   fontStyle: stylesConfiguration.fontStyle,
+                   display: 'none' }}
+      >
         <div style={{ fontSize: '13px' }} > 
           Se muestran resultados de: 
           <a id="queriedTerm"> { finderData.query } </a>
         </div>
         <div style={{ fontSize: '13px' }} > 
-          Buscar, en cambio, 
+          Buscar en cambio:&nbsp;               
           <a id="correctedTerm" onClick={ onClick } href="#" data-value="">  </a>
         </div>
       </div>

@@ -35,8 +35,8 @@ export const SingleFilter = ({ filter, finderData, onSearch }) => {
     const buckets = filter?.valueFilter?.[0]?.buckets ?? [];
     const FiltersVals = buckets.map((bucket, index) => {
         const deleteFilter = inmeta.includes( filterField + "!" + bucket.val ) ? (
-          <CheckBoxIcon sx={{ color: stylesConfiguration.color }}/>
-        ) : <CheckBoxOutlineBlankIcon sx={{ color: stylesConfiguration.color }}/>;
+          <CheckBoxIcon />
+        ) : <CheckBoxOutlineBlankIcon />;
       
         return (
           filter.collapsable ? (
@@ -49,12 +49,19 @@ export const SingleFilter = ({ filter, finderData, onSearch }) => {
                           { deleteFilter }
                         </ListItemIcon>
                       </Grid>
-                      <Grid item size={12} xs zeroMinWidth >
+                      <Grid size={12} >
                         <ListItemText id="filter_value" 
                                       sx={{ paddingRight : '20px'}} 
                                       disableTypography
                                       primary={
-                                          <Typography sx={ { ...stylesConfiguration, overflowWrap: 'break-word' } }>
+                                          <Typography sx={{ 
+                                            fontSize: stylesConfiguration.fontSize,
+                                            fontFamily: stylesConfiguration.fontFamily,
+                                            fontWeight: stylesConfiguration.fontWeight,
+                                            fontStyle: stylesConfiguration.fontStyle, 
+                                            overflowWrap: 'break-word' 
+                                            }}
+                                          >
                                               { bucket.val }
                                           </Typography>
                                       }
@@ -64,7 +71,12 @@ export const SingleFilter = ({ filter, finderData, onSearch }) => {
                         <ListItemText id="filter_count"
                                       disableTypography
                                       primary={
-                                        <Typography sx={ stylesConfiguration }>
+                                        <Typography sx={{
+                                          fontSize: stylesConfiguration.fontSize,
+                                          fontFamily: stylesConfiguration.fontFamily,
+                                          fontWeight: stylesConfiguration.fontWeight,
+                                          fontStyle: stylesConfiguration.fontStyle, 
+                                        }}>
                                             { bucket.count } 
                                         </Typography>
                                       }
@@ -83,11 +95,18 @@ export const SingleFilter = ({ filter, finderData, onSearch }) => {
                       { deleteFilter }
                     </ListItemIcon>
                   </Grid>
-                  <Grid item size={12} xs zeroMinWidth >
+                  <Grid size={12} xs zeroMinWidth >
                     <ListItemText id="filter_value" 
                                   sx={{ paddingRight : '20px'}} 
+                                  disableTypography
                                   primary={
-                                    <Typography sx={ { ...stylesConfiguration, overflowWrap: 'break-word' } }>
+                                    <Typography sx={{                                             
+                                      fontSize: stylesConfiguration.fontSize,
+                                      fontFamily: stylesConfiguration.fontFamily,
+                                      fontWeight: stylesConfiguration.fontWeight,
+                                      fontStyle: stylesConfiguration.fontStyle, 
+                                      overflowWrap: 'break-word' }}
+                                    >
                                         { bucket.val }
                                     </Typography>
                                   }
@@ -97,7 +116,13 @@ export const SingleFilter = ({ filter, finderData, onSearch }) => {
                     <ListItemText id="filter_count"
                                   disableTypography
                                   primary={
-                                    <Typography sx={ stylesConfiguration }>
+                                    <Typography sx={{
+                                      fontSize: stylesConfiguration.fontSize,
+                                      fontFamily: stylesConfiguration.fontFamily,
+                                      fontWeight: stylesConfiguration.fontWeight,
+                                      fontStyle: stylesConfiguration.fontStyle, 
+                                      }}
+                                    >
                                         { bucket.count } 
                                     </Typography>
                                   }
@@ -122,10 +147,7 @@ export const SingleFilter = ({ filter, finderData, onSearch }) => {
     });
     return (
         <>
-          <Grid item spacing={2} 
-                direction="column" 
-                sx={ stylesConfiguration }
-          >
+          <Grid sx={stylesConfiguration}>
               <FilterTitle key={ `filter_title_${ filter.id }` }
                           filter={ filter } 
                           open= { open }
@@ -133,8 +155,8 @@ export const SingleFilter = ({ filter, finderData, onSearch }) => {
                           stylesConfiguration={ stylesConfiguration }
 
               />
-              { FiltersVals }
           </Grid>
+          { FiltersVals }
         </>
     )
 }

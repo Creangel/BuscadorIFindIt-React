@@ -1,6 +1,6 @@
 import { SearchBar } from "./SearchBar"
 
-export const SearchBox = ({searchBox, finderData, onSearch}) => {
+export const SearchBox = ({searchBox, finderData, onSearch, disposition}) => {
     
     const onQuery = (newQueryVal) => {
       if (newQueryVal === "") {
@@ -20,6 +20,7 @@ export const SearchBox = ({searchBox, finderData, onSearch}) => {
             <SearchBar query={ finderData.query }
                        searchBox={ searchBox } 
                        onQuery={ onQuery }
+                       disposition={ disposition }
             />
         </div>
     )

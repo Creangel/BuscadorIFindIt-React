@@ -1,7 +1,7 @@
 import { getInnerFooterSections } from '../helpers/getInnerFooterSections';
 import { FooterImage } from './FooterImage';
 import { FooterItem } from './FooterItem';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 
 export const Footer = ({ footer }) => {
 
@@ -9,28 +9,21 @@ export const Footer = ({ footer }) => {
     const stylesConfiguration = footer.stylesConfiguration || {};
     
     return (
-        <footer style={{
-            color: stylesConfiguration.color,
-            fontSize: stylesConfiguration.fontSize,
-            fontFamily: stylesConfiguration.fontFamily,
-            fontWeight: stylesConfiguration.fontWeight,
-            fontStyle: stylesConfiguration.fontStyle,
-            backgroundColor: stylesConfiguration.backgroundColor,
-            padding: '20px',
-        }}>
+        <footer style={ stylesConfiguration }>
         <Grid container spacing={5}   
               direction="row"
               justifyContent="center"
               alignItems="center"
               sx={{
-                 height: '100%', // Ensure the grid takes the full height of the header
+                 height: '100%',
+                 marginTop: '10px' // Ensure the grid takes the full height of the header
               }}>
             {   
                 Object.keys( innerSections ).map( section => {
                     if ( innerSections[section] ) {
-                        return <Grid item key={`grid-${section}`} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        return <Grid key={`grid-${section}`} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px' }}>
                                     <div id={`footer-${section}`} key={ `footer-${section}`} >
-                                        <Grid item sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '5px'}}>
+                                        <Grid sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                                             <FooterImage footerImgName={ `footerImg${section}` }  
                                                         footerImage={ footer[ `footerImg${section}` ] }
                                             />
@@ -40,7 +33,7 @@ export const Footer = ({ footer }) => {
                                                 footer["footerItemConfigurations"]
                                                     .filter((item) => item["section"] === section.toLowerCase())
                                                     .map((item) => (
-                                                        <Grid item sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px'}}>
+                                                        <Grid key={`grid-${section}-${item.position}`} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px'}}>
                                                             <FooterItem key={`item-${section}-${item.position}`}
                                                                         item={item}
                                                                         itemName={`item-${section}-${item.position}`}
@@ -51,8 +44,8 @@ export const Footer = ({ footer }) => {
                                         </ul>                                     
                                     </div>
                                </Grid>
-
-                    }  
+                    }
+                    return null;  
                 })
             }
             </Grid>

@@ -63,6 +63,7 @@ export const FinderApp = () => {
                   <SearchBox searchBox={ disposition.searchBox }
                               onSearch={ onSearch }
                               finderData={ finderData }
+                              disposition={ disposition }
                   />
                 )
               }
