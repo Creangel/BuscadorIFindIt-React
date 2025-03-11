@@ -20,7 +20,7 @@ export const FinderApp = () => {
 
   const [ finderData, setFinderData ] = useState( initParams );
   const { disposition, isLoadingDisposition } = useFetchDisposition( initParams.finderId );
-  const { findResponse, isLoading, setQueryParams } = useFetchFinderResults( initParams);
+  const { findResponse, isLoading, setQueryParams } = useFetchFinderResults( initParams );
 
   const onSearch = ( newData ) => {
     setFinderData( {...newData} );
@@ -35,11 +35,11 @@ export const FinderApp = () => {
     setQueryParams({...finderData});
   }, [ isLoadingDisposition ]);
 
-  useEffect(() => {
-    console.log("Setting filters on finderData based on findResponse filters...");
-    finderData.filters = findResponse.filters;
-    setFinderData({...finderData});
-  }, [ isLoading ]); 
+  // useEffect(() => {
+  //   console.log("Setting valueFilter object on finderData filters based on findResponse filters...");
+  //   finderData.filters = findResponse.filters;
+  //   setFinderData({...finderData});
+  // }, [ findResponse ]); 
 
   console.log("FinderApp: disposition => ", disposition);
   console.log("FinderApp: findResponse => ", findResponse);

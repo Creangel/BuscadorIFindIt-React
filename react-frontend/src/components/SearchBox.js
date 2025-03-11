@@ -12,6 +12,7 @@ export const SearchBox = ({searchBox, finderData, onSearch, disposition}) => {
       finderData.query = newQueryVal;
       finderData.pageNum = 1;
       finderData.start = 0;
+      finderData.inmeta = "";
       onSearch(finderData);
     }; 
 

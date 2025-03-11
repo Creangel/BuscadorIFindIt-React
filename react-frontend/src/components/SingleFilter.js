@@ -3,7 +3,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { Collapse, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { FilterTitle } from './FilterTitle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 
@@ -11,15 +11,15 @@ import Typography from '@mui/material/Typography';
 export const SingleFilter = ({ filter, finderData, onSearch }) => {
     
     const [open, setOpen] = useState(!filter.initialCollapseState);
+    const [inmeta, setInmeta] = useState( finderData.inmeta );
     const stylesConfiguration = filter.stylesConfiguration || {};
     
     const filterField = getFilterByType( filter ).filterField;
-    const inmeta = sessionStorage.getItem("inmeta");
 
-    const onFilter = ({ target }) => {
+    const onFilter = ({ currentTarget }) => {
 
-        let newVal = target.dataset.value;
-        let inmeta = sessionStorage.getItem("inmeta");
+        let newVal = currentTarget.dataset.value;
+        let inmeta = finderData.inmeta;
 
         if( inmeta.includes( filterField + "!" + newVal ) ){
             inmeta = inmeta.replace( filterField + "!" + newVal , "" );
@@ -30,8 +30,14 @@ export const SingleFilter = ({ filter, finderData, onSearch }) => {
         finderData.inmeta = inmeta.replace( "<;><;>" , "<;>" ).trim();
         finderData.pageNum = 1;
         finderData.start = 0;
+        setInmeta( finderData.inmeta );
         onSearch( finderData );
     };
+
+    useEffect(() => {
+      setInmeta("");
+    }, [finderData.query]);
+
     const buckets = filter?.valueFilter?.[0]?.buckets ?? [];
     const FiltersVals = buckets.map((bucket, index) => {
         const deleteFilter = inmeta.includes( filterField + "!" + bucket.val ) ? (
@@ -132,17 +138,6 @@ export const SingleFilter = ({ filter, finderData, onSearch }) => {
               </Grid>
             </List>
           )
-          // <div value={ filterField } key={ index }>
-          //   { deleteFilter }
-          //   <a>
-          //     <span id="filter_value" onClick={ onFilter }>
-          //       { bucket.val }
-          //     </span>
-          //   </a>
-          //   <span id="filter_count" >
-          //     { bucket.count }
-          //   </span>
-          // </div>
         );
     });
     return (

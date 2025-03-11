@@ -1,11 +1,11 @@
 import { SingleFilter } from "./SingleFilter";
 
-export const Filters = ({ finderData, onSearch }) => {
+export const Filters = ({ finderData, findResponse, onSearch }) => {
 
     return (
         <>
             {
-                finderData.filters.map((filter, index) => (
+                findResponse.filters.map((filter, index) => (
                     <SingleFilter key={ `filter_${ filter.id }` } 
                                     filter={ filter } 
                                     finderData={ finderData }

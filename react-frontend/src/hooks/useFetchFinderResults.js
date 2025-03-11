@@ -32,7 +32,7 @@ export const useFetchFinderResults = ( bodyData ) => {
     }
 
     useEffect( () => {
-        if ( queryParams.filters === undefined  || Object.keys( queryParams.filters ).length === 0 ) return;
+        if ( queryParams.filters === undefined || Object.keys( queryParams.filters ).length === 0 ) return;
         getResults();
         executeSpellChecker();
     },[queryParams])

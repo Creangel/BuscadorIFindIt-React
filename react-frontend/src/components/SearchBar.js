@@ -6,7 +6,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 export const SearchBar = ({ query, searchBox, onQuery, disposition }) => {
 
-    const [ inputValue, setInputValue ] = useState('');
+    const [ inputValue, setInputValue ] = useState(query === "*" ? "" : query);
     const searchBarIcon = `data:image/png;base64,${searchBox.searchBarIcon}`;
     const stylesConfiguration = "header" in disposition ? disposition.header.stylesConfiguration : {};
 
@@ -21,15 +21,12 @@ export const SearchBar = ({ query, searchBox, onQuery, disposition }) => {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        onQuery(inputValue.trim())
         setInputValue(inputValue.trim());
+        onQuery(inputValue.trim())
     }
 
     useEffect(() => {
-        if( query !== "*" ){
-            setInputValue( query );
-            return;
-        }
+        setInputValue( query === "*" ? "" : query );
     }, [ query ]);
 
     return (
@@ -58,18 +55,19 @@ export const SearchBar = ({ query, searchBox, onQuery, disposition }) => {
                                         id="search"
                                         value={ inputValue }
                                         onChange={ onInputChange }
-                                        InputProps={{
-                                            sx: { backgroundColor: 'white' },
-                                            ...params.InputProps,
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <IconButton type="button" 
-                                                                sx={{ p: '1px' }} 
-                                                                onClick={onSubmit}>
-                                                        <img src={searchBarIcon} alt='' />
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            ),
+                                        slotProps={{
+                                            input: {
+                                                sx: { backgroundColor: 'white' },
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <IconButton type="button" 
+                                                                    sx={{ p: '1px' }}
+                                                                    onClick={onSubmit}>
+                                                            <img src={searchBarIcon} alt='' />
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                ),
+                                            },
                                         }}
                                     />
                                 )}

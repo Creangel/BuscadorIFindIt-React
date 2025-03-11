@@ -7,17 +7,18 @@ import { DrawPagination } from "./DrawPagination";
 import Grid from '@mui/material/Grid2'; 
 
 export const Body = ({ disposition, findResponse, finderData, onSearch }) => {
-    console.log("Hello my Filters: finderData => ", finderData.filters);
+    console.log("Hello my Filters: finderData => ", findResponse.filters);
     const resultDocs = ( findResponse?.docsInfo?.docs?.length ?? 0 ) >= 1;
-    const filtersExist = ( finderData?.filters?.length ?? 0 ) >= 1;
+    const filtersExist = ( findResponse?.filters?.length ?? 0 ) >= 1;
 
     return (
             <Grid container spacing={2} direction="row" sx={{ marginTop: "3px" }} >
                 <Grid id="filters_grid" size={2}>
                         {
-                            resultDocs && filtersExist && (
-                                <Filters finderData={ finderData }
-                                        onSearch={ onSearch }
+                            filtersExist && (
+                                <Filters finderData={ finderData } 
+                                         findResponse={ findResponse }
+                                         onSearch={ onSearch }
                                 />
                             )
                         }
