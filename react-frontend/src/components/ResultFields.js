@@ -1,5 +1,4 @@
 import { Snippet } from "./Snippet";
-import { useEffect } from "react";
 
 export const ResultFields = ({ docIndex, dispositionResults, snippet, stylesConfiguration }) => {
 
@@ -12,11 +11,6 @@ export const ResultFields = ({ docIndex, dispositionResults, snippet, stylesConf
                                            docIndex={ docIndex  }
                                            stylesConfiguration={ stylesConfiguration } 
                                   /> )
-            }
-            {
-                dispositionResults.hasCustomContent && (
-                    <div></div>
-                )
             }
         </div>
     );

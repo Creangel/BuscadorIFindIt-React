@@ -40,6 +40,7 @@ export const useFetchFinderResults = ( bodyData ) => {
     return {
         setQueryParams,
         findResponse,
-        isLoading
+        isLoading,
+        setisLoading
     }
 }

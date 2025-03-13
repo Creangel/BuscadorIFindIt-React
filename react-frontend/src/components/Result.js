@@ -5,6 +5,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 
 export const Result = ({ index, doc, disposition, snippet, query }) => {
+
     let dispositionResults = disposition.results
     let resultStyle = dispositionResults.stylesConfiguration;
     const titleStyle = resultStyle.filter((style) => style.name === "result_title")[0];
@@ -22,7 +23,17 @@ export const Result = ({ index, doc, disposition, snippet, query }) => {
     }, [ doc[ dispositionResults.urlField ] ]); 
 
     return (
-        <Card id={ idClassSnip } className="" sx={{ marginBottom: "10px" }}>
+        <Card variant="outlined" 
+              id={ idClassSnip } 
+              className=""
+              sx={{ marginBottom: "10px",
+                    borderColor: 'grey',
+                    borderWidth: '2px',
+                    '&:hover': {
+                        boxShadow: '-6px 6px 18px rgb(179, 183, 219)', // Add shadow effect on hover
+                    }
+                 }}
+        >
             <CardContent>
                 < ResultTitle id={ idClassLink }
                                 href={ doc[ dispositionResults.urlField ] }

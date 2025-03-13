@@ -30,7 +30,7 @@ export const Snippet = ({ docIndex, snippet, stylesConfiguration }) => {
     return (
         <div id={ "snippet_text_" + docIndex } 
             className="snippet_text" 
-            style={stylesConfiguration}
+            style={{ ...stylesConfiguration, textAlign: "justify" }}
             dangerouslySetInnerHTML={{ __html: snippetPrefix + snippetText }}>
         </div>
     );
