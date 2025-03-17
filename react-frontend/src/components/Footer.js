@@ -21,22 +21,54 @@ export const Footer = ({ footer }) => {
             {   
                 Object.keys( innerSections ).map( section => {
                     if ( innerSections[section] ) {
-                        return <Grid key={`grid-${section}`} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px' }}>
-                                    <div id={`footer-${section}`} key={ `footer-${section}`} >
-                                        <Grid sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        return <Grid key={`grid-${section}`} 
+                                     sx={{ display: 'flex', 
+                                           justifyContent: 'center', 
+                                           alignItems: 'center', 
+                                           padding: '20px' 
+                                        }}
+                                >
+                                    <div id={`footer-${section}`} 
+                                         key={ `footer-${section}`} 
+                                         style={ (section === "Center" || section === "Right")  ? 
+                                                    { 
+                                                      borderLeftColor: stylesConfiguration.color , 
+                                                      borderLeft: '2px solid black', 
+                                                      paddingLeft: '10px' 
+                                                    } 
+                                                : 
+                                                {}
+                                                } 
+                                    >
+                                        <Grid sx={{ display: 'flex', 
+                                                    justifyContent: 'center', 
+                                                    alignItems: 'center'
+                                                 }}
+                                        >
                                             <FooterImage footerImgName={ `footerImg${section}` }  
                                                         footerImage={ footer[ `footerImg${section}` ] }
                                             />
                                         </Grid>    
-                                        <ul key={`footer-${section}-items`}>
+                                        <ul key={`footer-${section}-items`} 
+                                            style={{ listStyleType: "none", 
+                                                     justifyItems: "left" 
+                                                    }}
+                                        >
                                             {
                                                 footer["footerItemConfigurations"]
                                                     .filter((item) => item["section"] === section.toLowerCase())
                                                     .map((item) => (
-                                                        <Grid key={`grid-${section}-${item.position}`} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px'}}>
+                                                        <Grid id={`grid-${section}-${item.position}`} 
+                                                              key={`grid-${section}-${item.position}`} 
+                                                              sx={{ display: 'flex', 
+                                                                    alignItems: 'center', 
+                                                                    padding: '10px'
+                                                                  }}
+                                                        >
                                                             <FooterItem key={`item-${section}-${item.position}`}
                                                                         item={item}
                                                                         itemName={`item-${section}-${item.position}`}
+                                                                        position={item.position}
                                                             />
                                                         </Grid>
                                                     ))

@@ -1,4 +1,4 @@
-export const FooterItem = ({ item, itemName }) => {
+export const FooterItem = ({ item, itemName, position }) => {
   if (!item) {
     return null;
   }
@@ -8,12 +8,16 @@ export const FooterItem = ({ item, itemName }) => {
       {
         item.fieldLink ? 
           (
-            <a href={ item.fieldLink } > { item.title } </a>
+            <a href={ item.fieldLink } style={{ textDecoration: "none" }}  > { item.title } </a>
           ) 
-        : 
+        : position === 0 ? 
           (
-            <span> { item.title } </span>
+            <span> <strong> { item.title } </strong> </span>
           )
+          : 
+            (
+              <span> { item.title } </span>
+            )  
       }
     </li>
   );

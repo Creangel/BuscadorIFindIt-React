@@ -1,6 +1,6 @@
 import { SearchBar } from "./SearchBar"
 
-export const SearchBox = ({searchBox, finderData, onSearch, disposition}) => {
+export const SearchBox = ({searchBox, onSearch, finderData, isSmallScreen}) => {
     
     const onQuery = (newQueryVal) => {
       if (newQueryVal === "") {
@@ -17,12 +17,10 @@ export const SearchBox = ({searchBox, finderData, onSearch, disposition}) => {
     }; 
 
     return (
-        <div>
-            <SearchBar query={ finderData.query }
-                       searchBox={ searchBox } 
-                       onQuery={ onQuery }
-                       disposition={ disposition }
-            />
-        </div>
+        <SearchBar query={ finderData.query }
+                    searchBox={ searchBox } 
+                    onQuery={ onQuery }
+                    isSmallScreen={ isSmallScreen }
+        />
     )
 }

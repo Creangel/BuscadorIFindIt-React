@@ -1,12 +1,16 @@
+import { useState } from "react";
+
 export const DrawNoResultsText = ({ query, stylesConfiguration }) => {
+
+    const [queryValue, setQueryValue] = useState(query);
     const contentStyle = stylesConfiguration.filter((style) => style.name === "result_content")[0];  
 
     return (
       <div className="row" style={contentStyle}>
         <div>
-          Su búsqueda - "<b>{query}</b>" - no produjo ningún documento.
+          Su búsqueda - "<b>{queryValue}</b>" - no produjo ningún documento.
           <br />
-          No se encontraron páginas que contengan "<b>{query}</b>".
+          No se encontraron páginas que contengan "<b>{queryValue}</b>".
           <br />
           <br />
           Sugerencias:
