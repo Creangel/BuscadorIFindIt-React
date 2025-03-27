@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: buscador-ifindit-react-hl
+spec:
+  selector:
+    app: buscador-ifindit-react
+  type: ClusterIP  
+  clusterIP: None
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 80 
+      name: nginx
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: buscador-ifindit-react
+spec:
+  selector:
+    app: buscador-ifindit-react
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 80 
+      name: nginx
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: buscador-ifindit-react
+spec:
+  serviceName: buscador-ifindit-react-hl
+  replicas: 1
+  selector:
+    matchLabels:
+      app: buscador-ifindit-react
+  template:
+    metadata:
+      labels:
+        app: buscador-ifindit-react
+    spec:
+      containers:
+        - name: buscador-ifindit-react-container
+          image: localhost:5000/buscador-ifindit-react:1.0
+          ports:
+            - containerPort: 80
+              name: nginx
+          envFrom:
+            - configMapRef:
+                name: buscador-ifindit-react-config
+          resources: {}    
+          securityContext:
+            runAsUser: 0
