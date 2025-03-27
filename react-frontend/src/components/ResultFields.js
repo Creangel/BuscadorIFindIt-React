@@ -1,7 +1,6 @@
 import { Snippet } from "./Snippet";
-import { useEffect } from "react";
 
-export const ResultFields = ({ docIndex, dispositionResults, snippet, infoResult }) => {
+export const ResultFields = ({ docIndex, dispositionResults, snippet, stylesConfiguration }) => {
 
     const snippetExist = snippet?.content?.[0] !== undefined;
     
@@ -9,13 +8,9 @@ export const ResultFields = ({ docIndex, dispositionResults, snippet, infoResult
         <div>
             {
                 snippetExist && ( <Snippet snippet={ snippet.content[0] }
-                                           docIndex={ docIndex  } 
+                                           docIndex={ docIndex  }
+                                           stylesConfiguration={ stylesConfiguration } 
                                   /> )
-            }
-            {
-                dispositionResults.hasCustomContent && (
-                    <div></div>
-                )
             }
         </div>
     );

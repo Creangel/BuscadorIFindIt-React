@@ -1,5 +1,5 @@
 export const getData = async( finderData ) => {
-    const response = await fetch('http://localhost:8083/Find', {
+    const response = await fetch(`${process.env.REACT_APP_BUSCADOR_IFINDIT_API_URL}/Find`, {
         headers: {
             'Content-Type': 'application/json'
         },

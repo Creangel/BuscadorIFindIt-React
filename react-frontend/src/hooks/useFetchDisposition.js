@@ -9,7 +9,6 @@ export const useFetchDisposition = ( finderId ) => {
     const loadDisposition = async () => {
         console.log("Getting disposition...");
         const results = await getDisposition(finderId);
-        console.log("Got disposition:", results);
         setDisposition(results.disposition);
         setIsLoadingDisposition(false);
     }

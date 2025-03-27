@@ -9,9 +9,7 @@ export const useFetchFinderResults = ( bodyData ) => {
 
     const getResults = async () => {
         console.log("Getting query results...");
-        console.log("Query params: ", queryParams);
         const resultsList = await getData(queryParams);
-        console.log("Got results:", resultsList);
         setFindResponse(resultsList.findResponse);
         setisLoading(false);
     }
@@ -22,17 +20,16 @@ export const useFetchFinderResults = ( bodyData ) => {
             const disposition = JSON.parse( sessionStorage.getItem("disposition") ); 
             sessionStorage.setItem("query", queryParams.query);
             if (disposition?.spellchecker === null) return;
-            const pathService = disposition.spellchecker.pathService; 
+            const pathService = process.env.REACT_APP_SPELLCHECKER_API_URL; 
             const typeSpell = disposition.spellchecker.type;
-            //window.callSpellchecker(pathService, typeSpell);
-            window.callSpellchecker("https://ifindit.creangel.com/Spellchecker_minv/wordSpell", typeSpell);
+            window.callSpellchecker( pathService, typeSpell );
         } else {
             console.error("callSpellchecker is not defined. Make sure the script is loaded correctly.");
         }
     }
 
     useEffect( () => {
-        if ( queryParams.filters === undefined  || Object.keys( queryParams.filters ).length === 0 ) return;
+        if ( queryParams.filters === undefined || Object.keys( queryParams.filters ).length === 0 ) return;
         getResults();
         executeSpellChecker();
     },[queryParams])
@@ -40,6 +37,7 @@ export const useFetchFinderResults = ( bodyData ) => {
     return {
         setQueryParams,
         findResponse,
-        isLoading
+        isLoading,
+        setisLoading
     }
 }

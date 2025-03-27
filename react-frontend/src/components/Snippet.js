@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export const Snippet = ({ docIndex, snippet }) => {
+export const Snippet = ({ docIndex, snippet, stylesConfiguration }) => {
 
     const [snippetPrefix, setSnippetPrefix] = useState([]);
     const [snippetText, setSnippetText] = useState([]);
@@ -28,11 +28,10 @@ export const Snippet = ({ docIndex, snippet }) => {
     }, [ snippet ]); 
 
     return (
-        <div>
-            <div id={ "snippet_text_" + docIndex } 
-                 className="snippet_text" 
-                 dangerouslySetInnerHTML={{ __html: snippetPrefix + snippetText }}>
-            </div>
+        <div id={ "snippet_text_" + docIndex } 
+            className="snippet_text" 
+            style={{ ...stylesConfiguration, textAlign: "justify" }}
+            dangerouslySetInnerHTML={{ __html: snippetPrefix + snippetText }}>
         </div>
     );
 };
