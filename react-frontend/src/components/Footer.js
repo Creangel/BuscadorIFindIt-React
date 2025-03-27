@@ -10,24 +10,11 @@ export const Footer = ({ footer }) => {
     
     return (
         <footer style={ stylesConfiguration }>
-        <Grid container spacing={5}   
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-              sx={{
-                 height: '100%',
-                 marginTop: '10px' // Ensure the grid takes the full height of the header
-              }}>
+        <Grid container className="footer_grid" spacing={5} direction="row" >
             {   
                 Object.keys( innerSections ).map( section => {
                     if ( innerSections[section] ) {
-                        return <Grid key={`grid-${section}`} 
-                                     sx={{ display: 'flex', 
-                                           justifyContent: 'center', 
-                                           alignItems: 'center', 
-                                           padding: '20px' 
-                                        }}
-                                >
+                        return <Grid className="footer_section_grid" key={`grid-${section}`} >
                                     <div id={`footer-${section}`} 
                                          key={ `footer-${section}`} 
                                          style={ (section === "Center" || section === "Right")  ? 
@@ -40,11 +27,7 @@ export const Footer = ({ footer }) => {
                                                 {}
                                                 } 
                                     >
-                                        <Grid sx={{ display: 'flex', 
-                                                    justifyContent: 'center', 
-                                                    alignItems: 'center'
-                                                 }}
-                                        >
+                                        <Grid className="footer_image_grid" >
                                             <FooterImage footerImgName={ `footerImg${section}` }  
                                                         footerImage={ footer[ `footerImg${section}` ] }
                                             />
@@ -58,12 +41,9 @@ export const Footer = ({ footer }) => {
                                                 footer["footerItemConfigurations"]
                                                     .filter((item) => item["section"] === section.toLowerCase())
                                                     .map((item) => (
-                                                        <Grid id={`grid-${section}-${item.position}`} 
-                                                              key={`grid-${section}-${item.position}`} 
-                                                              sx={{ display: 'flex', 
-                                                                    alignItems: 'center', 
-                                                                    padding: '10px'
-                                                                  }}
+                                                        <Grid className="footer_item_grid" 
+                                                              id={`grid-${section}-${item.position}`} 
+                                                              key={`grid-${section}-${item.position}`}
                                                         >
                                                             <FooterItem key={`item-${section}-${item.position}`}
                                                                         item={item}

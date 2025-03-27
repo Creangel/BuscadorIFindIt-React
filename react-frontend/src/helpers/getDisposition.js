@@ -1,6 +1,6 @@
 export const getDisposition = async( finderId ) => {
     try {
-        const response = await fetch(`http://localhost:8083/disposition?finderId=${finderId}`);
+        const response = await fetch(`${process.env.REACT_APP_BUSCADOR_IFINDIT_API_URL}/disposition?finderId=${finderId}`);
         if (response.ok) {
             const resp = await response.json();
             return resp;

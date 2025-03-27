@@ -7,14 +7,14 @@ import { useFetchDisposition } from './hooks/useFetchDisposition';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-const initParams = {
-  finderId: sessionStorage.getItem("finderId"),
-  inmeta: sessionStorage.getItem("inmeta"),
-  pageNum: sessionStorage.getItem("pageNum"),
-  query: sessionStorage.getItem("query"),
-  start: sessionStorage.getItem("start"),
-  rlv: sessionStorage.getItem("rlv"),
-  filters: sessionStorage.getItem("filters"),
+const initParams = {    
+  finderId: process.env.REACT_APP_FINDER_ID,
+  inmeta:"",
+  pageNum: "1",
+  query: "*",
+  start: "0",
+  rlv: "",
+  filters: [],
 };
 
 export const FinderApp = () => {
@@ -38,15 +38,22 @@ export const FinderApp = () => {
   };
 
   useEffect(() => {
-    console.log("Setting disposition on sessionStorage...");
+    console.log("Setting disposition and finderData on sessionStorage...");
+
     sessionStorage.setItem("disposition", JSON.stringify(disposition));
+    sessionStorage.setItem("finderId", process.env.REACT_APP_FINDER_ID);
+    sessionStorage.setItem("inmeta", "");
+    sessionStorage.setItem("pageNum", "1");
+    sessionStorage.setItem("query", "*");
+    sessionStorage.setItem("start", "0");
+    sessionStorage.setItem("rlv", "");
+    
     finderData.filters = disposition.filters;
     setFinderData({...finderData});
     setQueryParams({...finderData});
   }, [ isLoadingDisposition ]);
 
   console.log("FinderApp: disposition => ", disposition);
-  console.log("FinderApp: findResponse => ", findResponse);
   console.log("FinderApp: finderData => ", finderData);
 
   return (

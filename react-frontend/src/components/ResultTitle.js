@@ -13,7 +13,7 @@ export const ResultTitle = ({ id, href, title, query, index, stylesConfiguration
     const onSendSignals = (type, url, query, pos) => {
         const seId = sessionStorage.getItem('finderId');
         if (window.sendSignals) {
-            window.sendSignals(type, url, query, pos, seId);
+            window.sendSignals(process.env.REACT_APP_BUSCADOR_IFINDIT_API_URL, type, url, query, pos, seId);
         } else {
             console.error("sendSignals is not defined. Make sure the script is loaded correctly.");
         }
@@ -28,15 +28,14 @@ export const ResultTitle = ({ id, href, title, query, index, stylesConfiguration
             <div id={`breadCrumb_${index}`} >
             </div>
             <Typography component="a"
+                        className='result_title'
                         id={id}
                         target="_blank"
                         variant='h6'
                         rel="noreferrer"
                         href={validateHref(href)}
                         onClick={handleClick}
-                        sx={{ ...stylesConfiguration, textDecoration: 'none', '&:hover': {
-                             textDecoration: 'underline'
-                    } }}
+                        sx={stylesConfiguration}
             >
                 {title}
             </Typography>

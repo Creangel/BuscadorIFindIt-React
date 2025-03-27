@@ -18,9 +18,9 @@ export const SearchBox = ({searchBox, onSearch, finderData, isSmallScreen}) => {
 
     return (
         <SearchBar query={ finderData.query }
-                    searchBox={ searchBox } 
-                    onQuery={ onQuery }
-                    isSmallScreen={ isSmallScreen }
+                   searchBox={ searchBox } 
+                   onQuery={ onQuery }
+                   isSmallScreen={ isSmallScreen }
         />
     )
 }

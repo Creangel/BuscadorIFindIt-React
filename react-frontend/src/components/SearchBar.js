@@ -33,7 +33,7 @@ export const SearchBar = ({ query, searchBox, onQuery }) => {
     const onGetSuggestions = async (query) => {
         const seId = sessionStorage.getItem("finderId");
         if(window.getSuggestions && query !== ""){
-            let suggestions = await window.getSuggestions(seId, query);
+            let suggestions = await window.getSuggestions(process.env.REACT_APP_BUSCADOR_IFINDIT_API_URL, seId, query);
             let query_s = "query_s" in suggestions ? suggestions.query_s : [];
             let newOptions = [];
             Object.keys(query_s).forEach( key => { newOptions.push(query_s[key]) } );
@@ -59,7 +59,7 @@ export const SearchBar = ({ query, searchBox, onQuery }) => {
             }} 
         >
             <form onSubmit={ onSubmit } id={searchBox.id}>
-                <FormControl sx={{ width: '40ch' }}>
+                <FormControl className='searchbar_form_control'>
                         <Autocomplete
                             disableClearable
                             filterOptions={(x) => x}
@@ -93,12 +93,14 @@ export const SearchBar = ({ query, searchBox, onQuery }) => {
                                                 slotProps={{
                                                     ...props,
                                                     input: {
-                                                        sx: { backgroundColor: 'white', 
+                                                        sx: { 
+                                                                backgroundColor: 'white', 
                                                                 borderRadius: '0',
                                                                 '&:hover': {
                                                                     backgroundColor: '#dedfe0', // Add hover effect
                                                                 },
-                                                                }                                                        },
+                                                            }
+                                                    },
                                                 }} 
                                     />
                                     </li>

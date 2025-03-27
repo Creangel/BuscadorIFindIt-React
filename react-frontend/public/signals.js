@@ -1,4 +1,4 @@
-function sendSignals(type, url, query, position, seId) {
+function sendSignals(pathService, type, url, query, position, seId) {
     if (type === "resultClick") {
         type = "click";
     }
@@ -11,7 +11,7 @@ function sendSignals(type, url, query, position, seId) {
     };
 
     $.ajax({
-        url: `http://localhost:8083/signals/${seId}`,
+        url: `${pathService}/signals/${seId}`,
         type: "POST",
         headers: {
             'Content-Type': 'application/json'

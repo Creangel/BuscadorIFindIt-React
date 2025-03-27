@@ -8,12 +8,13 @@ import Grid from '@mui/material/Grid2';
 export const FilterTitle = ({ filter, setOpen, open, stylesConfiguration, searchable, setShowFilterSearchBar, showFilterSearchBar }) => {
 
     const onClick = () => {
-        console.log("Click sobre filtro!");
         setOpen(!open);
+        if(showFilterSearchBar) {
+            setShowFilterSearchBar(!showFilterSearchBar);
+        }
     };
 
-    const onFilterSearch = (event) => {
-        console.log("Click sobre simbolo de busqueda!");
+    const onShowFilterSearchBar = (event) => {
         setShowFilterSearchBar(!showFilterSearchBar);        
     };
 
@@ -21,41 +22,47 @@ export const FilterTitle = ({ filter, setOpen, open, stylesConfiguration, search
         <>
             {
                 filter.collapsable ? ( 
-                    <ListItemButton onClick={onClick}>
-                        <Grid size={2} justifyContent="space-between">
-                            <ListItemIcon>
-                                <FilterAltIcon sx={{ color: stylesConfiguration.color }}/>
-                            </ListItemIcon>
-                        </Grid>
-                        <Grid container size={10}>
-                            <Grid size={10}>
-                                <ListItemText
-                                    disableTypography
-                                    primary={
-                                        <Typography sx={ stylesConfiguration }>
-                                            { filter.title }
-                                        </Typography>
+                    <ListItemButton sx={{padding: "0"}}>
+                        <Grid container className="collapsable_filter_button_grid" size={12} sx={{ ...stylesConfiguration }}>
+                            <Grid size={1}>
+                                <ListItemIcon onClick={onClick}>
+                                    <FilterAltIcon sx={{ color: stylesConfiguration.color }}/>
+                                </ListItemIcon>
+                            </Grid>
+                            <Grid container spacing={2} size={10} >    
+                                <Grid size={10} >
+                                    <ListItemText
+                                        className="collapsable_filter_button_text"
+                                        disableTypography
+                                        primary={
+                                            <Typography sx={ stylesConfiguration }>
+                                                { filter.title }
+                                            </Typography>
+                                        }
+                                        onClick={onClick}
+                                    />
+                                </Grid>
+                                <Grid size={2} className="collapsable_filter_button_search_icon_grid">
+                                    {
+                                        <ListItemIcon >
+                                            {
+                                                searchable && (
+                                                    <SearchIcon sx={{ color: stylesConfiguration.color }}
+                                                                onClick={onShowFilterSearchBar}
+                                                    />
+                                                ) 
+                                            }
+                                        </ListItemIcon>
                                     }
-                                />
+                                </Grid>
                             </Grid>
                             <Grid size={1}>
-                                {
-                                    searchable && (
-                                            <ListItemIcon>
-                                                <SearchIcon sx={{ color: stylesConfiguration.color }}
-                                                            onClick={onFilterSearch}
-                                                />
-                                            </ListItemIcon>
-                                    ) 
-                                }
+                                { open ? <ExpandLess onClick={onClick} /> : <ExpandMore onClick={onClick} />}   
                             </Grid>
-                        </Grid>
-                        <Grid>
-                            { open ? <ExpandLess /> : <ExpandMore />}
                         </Grid>
                     </ListItemButton>
                 ) : (
-                    <ListItem >
+                    <ListItem>
                         <ListItemIcon>
                             <FilterAltIcon sx={{ color: stylesConfiguration.color }} />
                         </ListItemIcon>
@@ -69,7 +76,7 @@ export const FilterTitle = ({ filter, setOpen, open, stylesConfiguration, search
                         />
                          {
                             searchable && (
-                                <ListItemButton onClick={onClick} sx={{padding: "0"}}>
+                                <ListItemButton onClick={onShowFilterSearchBar} sx={{padding: "0"}}>
                                     <ListItemIcon>
                                         <SearchIcon sx={{ color: stylesConfiguration.color }}/>
                                     </ListItemIcon>

@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid2';
 import { FilterTitle } from './FilterTitle';
+import { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import { getFilterByType } from '../helpers/getFilterByType';
@@ -17,6 +17,7 @@ export const SingleFilter = ({ filter, finderData, onSearch }) => {
     const [showFilterSearchBar, setShowFilterSearchBar] = useState(false);
     const [options, setOptions] = useState([]);
     const [inputValue, setInputValue] = useState("");
+    const [limit, setLimit] = useState( 5 );
 
     const stylesConfiguration = filter.stylesConfiguration || {};
     const filterField = getFilterByType( filter ).filterField;
@@ -41,7 +42,7 @@ export const SingleFilter = ({ filter, finderData, onSearch }) => {
         updateFinderData( currentTarget.dataset.value );
         onSearch( finderData );
         let selectedFilter = buckets.filter( (bucket) => bucket.val === currentTarget.dataset.value )[0];
-        setFilterList( [selectedFilter] )
+        setFilterList( [selectedFilter] );
         setIsFiltered( true );
     };
 
@@ -52,13 +53,13 @@ export const SingleFilter = ({ filter, finderData, onSearch }) => {
         setIsFiltered( false );
     }
 
-    const onAutocompleteChange = ({ currentTarget }) => {
-        setInputValue(currentTarget.dataset.value);
-        onFilter({ currentTarget });
+    const onAutocompleteChange = (event, selectedOption) => {
+      onFilterSearchInputChange({ target: { value: selectedOption } });
+      onFilter({ currentTarget: { dataset: { value: selectedOption } } });
     };
 
     const onFilterSearchInputChange = ({ target }) => {
-        setInputValue(target.value.trim());  
+        setInputValue(target.value);  
     };
 
     useEffect(() => {
@@ -67,22 +68,24 @@ export const SingleFilter = ({ filter, finderData, onSearch }) => {
     }, [ finderData.query ]);
 
     useEffect(() => {
-      if( !isFiltered ) 
-      setFilterList(buckets);
-    }, [ buckets ]);
+      if( !isFiltered ) {
+        setFilterList(buckets);
+      }
+      setOptions([]);
+    }, [ filter ]);
 
     useEffect(() => {
-      if( !open && showFilterSearchBar ){
-        const filterValues = [];
-        filterList.forEach((bucket) => {
-          filterValues.push(bucket.val);
-        });
-        setOptions(filterValues);
-        setOpen(!open);
-      } else if ( open && !showFilterSearchBar ){
-        setOpen(open);
+      const filterValues = filterList.map(bucket => bucket.val); // Extract filter values once
+  
+      if (showFilterSearchBar) {
+          setOptions(filterValues);
+          if (!open) {
+              setOpen(true);
+          }
+      } else if (open && !showFilterSearchBar) {
+          setOpen(open);
       }
-    }, [ showFilterSearchBar ]);
+  }, [showFilterSearchBar, filterList, open]);
 
     
     const FiltersVals = filterList.map((bucket, index) => {
@@ -106,53 +109,55 @@ export const SingleFilter = ({ filter, finderData, onSearch }) => {
                     component="div" 
                     disablePadding
               >
-                <Grid container size={8}>
+                <Grid container size={12} direction={{ xs: 'row' }}>
                     {
                       isFiltered && (
-                        <Grid container size={2}>
+                        <Grid container size={1} direction={{ xs: 'row' }}>
                           <ListItemButton data-value={ bucket.val } onClick={ onRemoveFilter }  >
-                              <ListItemIcon >
-                                { deleteFilter }
-                              </ListItemIcon>
-                          </ListItemButton  >
+                            <Grid className='delete_filter_icon_grid' size={12}>
+                              { deleteFilter }
+                            </Grid>
+                          </ListItemButton>
                         </Grid>
                       )   
                     }
-                    <ListItemButton data-value={ bucket.val } onClick={ onFilter }  >
-                        <Grid size={12} >
-                          <ListItemText id={`filter_value_${index}`} 
-                                        sx={{ paddingRight : '20px'}} 
-                                        disableTypography
-                                        primary={
-                                            <Typography sx={{ 
+                    <Grid size={ !isFiltered ? 12 : 11 }>
+                      <ListItemButton data-value={ bucket.val } onClick={ onFilter }  >
+                          <Grid size={{ xs: 11}} >
+                            <ListItemText id={`filter_value_${index}`} 
+                                          disableTypography
+                                          primary={
+                                              <Typography sx={{ 
+                                                fontSize: stylesConfiguration.fontSize,
+                                                fontFamily: stylesConfiguration.fontFamily,
+                                                fontWeight: stylesConfiguration.fontWeight,
+                                                fontStyle: stylesConfiguration.fontStyle, 
+                                                overflowWrap: 'break-word' 
+                                                }}
+                                              >
+                                                  { bucket.val }
+                                              </Typography>
+                                          }
+                            />
+                          </Grid>
+                          <Grid size={1}>
+                            <ListItemText id="filter_count"
+                                          className='filter_count_text'
+                                          disableTypography
+                                          primary={
+                                            <Typography sx={{
                                               fontSize: stylesConfiguration.fontSize,
                                               fontFamily: stylesConfiguration.fontFamily,
                                               fontWeight: stylesConfiguration.fontWeight,
                                               fontStyle: stylesConfiguration.fontStyle, 
-                                              overflowWrap: 'break-word' 
-                                              }}
-                                            >
-                                                { bucket.val }
+                                            }}>
+                                                { bucket.count } 
                                             </Typography>
-                                        }
-                          />
-                        </Grid>
-                        <Grid size={1}>
-                          <ListItemText id="filter_count"
-                                        disableTypography
-                                        primary={
-                                          <Typography sx={{
-                                            fontSize: stylesConfiguration.fontSize,
-                                            fontFamily: stylesConfiguration.fontFamily,
-                                            fontWeight: stylesConfiguration.fontWeight,
-                                            fontStyle: stylesConfiguration.fontStyle, 
-                                          }}>
-                                              { bucket.count } 
-                                          </Typography>
-                                        }
-                          />
-                        </Grid>
-                    </ListItemButton>
+                                          }
+                            />
+                          </Grid>
+                      </ListItemButton>
+                    </Grid>
                 </Grid>
               </List>
             </Collapse>
@@ -168,9 +173,8 @@ export const SingleFilter = ({ filter, finderData, onSearch }) => {
                       { deleteFilter }
                     </ListItemIcon>
                   </Grid>
-                  <Grid size={12} xs zeroMinWidth >
+                  <Grid size={12} zeroMinWidth >
                     <ListItemText id="filter_value" 
-                                  sx={{ paddingRight : '20px'}} 
                                   disableTypography
                                   primary={
                                     <Typography sx={{                                             
@@ -209,28 +213,24 @@ export const SingleFilter = ({ filter, finderData, onSearch }) => {
     });
     return (
         <>
-          <Grid container sx={stylesConfiguration}>
-              <FilterTitle key={ `filter_title_${ filter.id }` }
-                          filter={ filter } 
-                          open= { open }
-                          setOpen={ setOpen }
-                          stylesConfiguration={ stylesConfiguration }
-                          searchable={ searchable }
-                          setShowFilterSearchBar={ setShowFilterSearchBar }
-                          showFilterSearchBar={ showFilterSearchBar }
-              />
-          </Grid>
+            <FilterTitle key={ `filter_title_${ filter.id }` }
+                        filter={ filter } 
+                        open= { open }
+                        setOpen={ setOpen }
+                        stylesConfiguration={ stylesConfiguration }
+                        searchable={ searchable }
+                        setShowFilterSearchBar={ setShowFilterSearchBar }
+                        showFilterSearchBar={ showFilterSearchBar }
+            />
           {
             showFilterSearchBar && (
               <Grid >
                   <Autocomplete
+                    disableClearable
                     options={ options }
                     freeSolo
-                    sx={{ flex: 1, borderRadius: '0' }}
-                    disableClearable
-                    data-value={ inputValue }
                     value={ inputValue }
-                    onChange={ onFilter }
+                    onChange={ onAutocompleteChange }
                     slotProps={{
                         listbox: {
                             component: 'ul', // Customize the listbox component
@@ -248,24 +248,22 @@ export const SingleFilter = ({ filter, finderData, onSearch }) => {
                                       margin: '1',
                                       borderRadius: '0'
                                     }}  
-                              key={key} {...optionProps}
+                              key={key} 
+                              {...optionProps}
                           >
                             <TextField size="small"
                                       value={option}
                                       style={{ width: '100%'}}
-                                      sx={{
-                                        
-                                        }}
-                                        slotProps={{
-                                            ...props,
-                                            input: {
-                                                sx: { backgroundColor: 'white', 
-                                                      borderRadius: '0',
-                                                      '&:hover': {
-                                                        backgroundColor: '#dedfe0', // Add hover effect
-                                                      },
-                                                    }                                                        },
-                                        }} 
+                                      slotProps={{
+                                          ...props,
+                                          input: {
+                                              sx: { backgroundColor: 'white', 
+                                                    borderRadius: '0',
+                                                    '&:hover': {
+                                                      backgroundColor: '#dedfe0', // Add hover effect
+                                                    },
+                                                  }                                                        },
+                                      }} 
                             />
                           </li>
                         );
@@ -284,7 +282,67 @@ export const SingleFilter = ({ filter, finderData, onSearch }) => {
               </Grid>
             )
           }
-          { FiltersVals }
+          { FiltersVals.slice(0, limit) }
+          { 
+            FiltersVals.length > (limit - 1) && open && (
+              <Grid container direction={"row"} spacing={0}>  
+                {
+                  limit < FiltersVals.length && (
+                    <ListItemButton onClick={ () => setLimit( limit + 5 ) }
+                                    sx={{
+                                      '&:hover': {
+                                        textDecoration: 'underline',
+                                        backgroundColor: '#dedfe0'
+                                      }}
+                                    }                    
+                    >
+                      <ListItemText primary={
+                                      <Typography
+                                        className='filter_count_text'
+                                        sx={{
+                                          fontSize: stylesConfiguration.fontSize,
+                                          fontFamily: stylesConfiguration.fontFamily,
+                                          fontWeight: stylesConfiguration.fontWeight,
+                                          fontStyle: stylesConfiguration.fontStyle,
+                                        }}
+                                      >
+                                          Ver más +
+                                      </Typography>
+                                    } 
+                      />
+                    </ListItemButton>
+                  )
+                }         
+                {
+                  limit > 5 && (
+                    <ListItemButton onClick={ () => setLimit( limit - 5 ) } 
+                                    sx={{
+                                          '&:hover': {
+                                            textDecoration: 'underline',
+                                            backgroundColor: '#dedfe0'
+                                          }}
+                                        }         
+                    >
+                      <ListItemText primary={
+                                      <Typography 
+                                        className='filter_count_text'
+                                        sx={{
+                                          fontSize: stylesConfiguration.fontSize,
+                                          fontFamily: stylesConfiguration.fontFamily,
+                                          fontWeight: stylesConfiguration.fontWeight,
+                                          fontStyle: stylesConfiguration.fontStyle
+                                        }}
+                                      >
+                                          Ver menos -
+                                      </Typography>
+                                    } 
+                      />
+                    </ListItemButton>
+                  )
+                }
+              </Grid>
+            )
+          }
         </>
     )
 }

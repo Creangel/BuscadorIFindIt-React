@@ -1,4 +1,4 @@
-function getSuggestions(seId, query) {
+function getSuggestions(pathService, seId, query) {
     const data = {
         query: query,
         type: "load",
@@ -6,7 +6,7 @@ function getSuggestions(seId, query) {
 
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: `http://localhost:8083/suggest/${seId}`, // the endpoint, commonly same url
+            url: `${pathService}/suggest/${seId}`, // the endpoint, commonly same url
             type: "POST", // http method
             headers: {
                 'Content-Type': 'application/json'

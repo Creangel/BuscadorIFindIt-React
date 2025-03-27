@@ -25,8 +25,8 @@ export const Result = ({ index, doc, disposition, snippet, query }) => {
     return (
         <Card variant="outlined" 
               id={ idClassSnip } 
-              className=""
-              sx={{ marginBottom: "10px",
+              sx={{ 
+                    marginBottom: "10px",
                     borderColor: 'grey',
                     borderWidth: '2px',
                     '&:hover': {
