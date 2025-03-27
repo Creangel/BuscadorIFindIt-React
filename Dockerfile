@@ -6,11 +6,8 @@ COPY . /app
 
 WORKDIR /app/react-frontend
 
-# Install Yarn
-RUN apk add --no-cache yarn
-
 # Install dependencies and build the React app by using yarn
-RUN yarn install && yarn build
+RUN npm install && npm run build
 
 # Stage 2: Nginx to serve built files
 FROM nginx:alpine
