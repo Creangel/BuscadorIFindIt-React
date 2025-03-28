@@ -25,7 +25,7 @@ export const ResultTitle = ({ id, href, title, query, index, stylesConfiguration
 
     return (
         <>
-            <div id={`breadCrumb_${index}`} >
+            <div id={`breadCrumb_${index}`} className='breadcrumb' >
             </div>
             <Typography component="a"
                         className='result_title'

@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './basicStyle.css';
 import reportWebVitals from './reportWebVitals';
 import { FinderApp } from './FinderApp';
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import $ from "jquery";
+
+// Make jQuery available globally
+window.$ = window.jQuery = $;
 
 ReactDOM.createRoot(document.getElementById('SearchIFindIt')).render(
   <React.StrictMode>

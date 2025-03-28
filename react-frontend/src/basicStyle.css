@@ -114,3 +114,11 @@
 	justify-content: center; 
 	align-items: center;
 }
+
+a {
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.breadcrumb {
+	margin-bottom: 5px;
+}	
