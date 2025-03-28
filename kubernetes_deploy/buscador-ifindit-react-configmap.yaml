@@ -4,6 +4,7 @@ metadata:
   name: buscador-ifindit-react-config
 data:
   #BUSCADOR REACT'S ENVIRONMENT VARIABLES
-  BUSCADOR_IFINDIT_API_URL: http://192.168.236.204:32489
-  SPELLCHECKER_API_URL: https://ifindit.creangel.com/Spellchecker_minv/wordSpell
-  FINDER_ID: "1"
+  .env: |-
+    REACT_APP_FINDER_ID=1
+    REACT_APP_SPELLCHECKER_API_URL=https://ifindit.creangel.com/Spellchecker_minv/wordSpell
+    REACT_APP_BUSCADOR_IFINDIT_API_URL=http://192.168.236.204:32489
