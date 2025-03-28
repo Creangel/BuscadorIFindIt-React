@@ -10,5 +10,4 @@ COPY . /app
 # Make sure the script has execution permissions
 RUN chmod +x build-buscador-ifindit-react.sh
 
-# Set the startup script as the entrypoint
-ENTRYPOINT ["/app/build-buscador-ifindit-react.sh"]
+CMD ["/bin/sh", "-c", "/app/build-buscador-ifindit-react.sh && tail -f /dev/null"]
